@@ -318,5 +318,35 @@ namespace MyCode // Note: actual namespace depends on the project name.
             }
             return res;
         }
+        //328
+        public ListNode OddEvenList(ListNode head)
+        {
+            if (head == null)
+                return null;
+            ListNode even = new ListNode(0);
+            ListNode odd = new ListNode(0);
+            ListNode evenCur = even;
+            ListNode oddCur = odd;
+            ListNode cur = head;
+            bool isOdd = true;
+            while (cur != null)
+            {
+                if (isOdd)
+                {
+                    oddCur.next = cur;
+                    oddCur = oddCur.next;
+                    isOdd = false;
+                }
+                else 
+                {
+                    evenCur.next = cur;
+                    evenCur = evenCur.next;
+                    isOdd = true;
+                }
+                cur = cur.next;
+            }
+            oddCur.next = even.next;
+            return odd.next;
+        }
     }
 }
