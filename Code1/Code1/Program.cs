@@ -346,7 +346,87 @@ namespace MyCode // Note: actual namespace depends on the project name.
                 cur = cur.next;
             }
             oddCur.next = even.next;
+            evenCur.next = null;
             return odd.next;
         }
+
+        //数组部分
+        //283
+        public void MoveZeroes(int[] nums)
+        {
+            int cur = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 0)
+                {
+                    nums[cur] = nums[i];
+                    cur++;
+                }
+            }
+            for (int m = cur; m < nums.Length; m++)
+            {
+                nums[m] = 0;
+            }
+        }
+        //566
+        public int[][] MatrixReshape(int[][] mat, int r, int c)
+        {
+            int m = mat.GetLength(0);
+            int n = mat[0].Length;
+            if (m * n != r * c)
+                return mat;
+            int[][] res = new int[r] [];
+            int curM = 0;
+            int curN = 0;
+            for (int i = 0; i < r; i++)
+            {
+                res[i] = new int[c];
+                for (int j = 0; j < c; j++)
+                {
+                    res[i][j] = mat[curM][curN];
+                    curN++;
+                    if (curN > n - 1)
+                    {
+                        curM++;
+                        curN = 0;
+                    }
+                }
+            }
+            return res;
+        }
+        //485
+        public int FindMaxConsecutiveOnes(int[] nums)
+        {
+            int res = 0;
+            int last = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 1)
+                {
+                    last = last + 1;
+                    res = Math.Max(last, res);
+                }
+                else
+                    last = 0;
+            }
+            return res;
+        }
+        //141 环形链表
+        public bool HasCycle(ListNode head)
+        {
+            if (head == null)
+                return false;
+            ListNode slow = head;
+            ListNode fast = head.next; //fast在前一部 防止下面while循环在最初时判断无法进入
+            while (fast!= null && fast.next != null && fast.next.next != null && slow != fast)
+            {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            if (fast == null || fast.next == null || fast.next.next == null)
+                return false;
+            else
+                return true;
+        }
     }
-}
+} 
