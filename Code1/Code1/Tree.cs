@@ -153,6 +153,42 @@ namespace Code1
             }
             return res;
         }
+        //104
+        public int MaxDepth(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
+        }
+        //226
+        public TreeNode InvertTree(TreeNode root)
+        {
+            if (root == null)
+                return null;
+            TreeNode left = InvertTree(root.left);
+            TreeNode right = InvertTree(root.right);
+            root.left = right;
+            root.right = left;
+            return root;
+        }
+        //101
+        public bool IsSymmetric(TreeNode root)
+        {
+            if (root == null)
+                return true;
+            return IsSymmetric2(root.left, root.right);
+        }
+        public bool IsSymmetric2(TreeNode root1, TreeNode root2)
+        {
+            if (root1 == null)
+                return root2 == null;
+            if (root2 == null)
+                return root1 == null;
+            if (root1.val != root2.val)
+                return false;
+            else
+                return IsSymmetric2(root1.left, root2.right) && IsSymmetric2(root1.right, root2.left);
+        }
     }
 }
 
